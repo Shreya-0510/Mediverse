@@ -2,6 +2,7 @@ import express from 'express';
 import connectDb from './config/db.js';
 import dotenv from 'dotenv';
 import patientRoutes from "./routes/patient.routes.js";
+import doctorRoutes from "./routes/doctor.routes.js";   
 
 dotenv.config();
 
@@ -14,7 +15,7 @@ app.use(express.json());
 
 // Routes
 app.use("/api/patients", patientRoutes);
-
+app.use("/api/doctors", doctorRoutes);
 
 // Start Server
 const startServer = async () => {
