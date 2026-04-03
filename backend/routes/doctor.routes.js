@@ -1,10 +1,10 @@
 import express from "express";
-import { createDoctor, getDoctorById, searchDoctors } from "../controllers/doctor.controller.js";
+import { getDoctorById, searchDoctors } from "../controllers/doctor.controller.js";
+import { authorize, protect } from "../middleware/auth.js";
 
 const router = express.Router();
 
-router.post("/", createDoctor);
-router.get("/", searchDoctors);
-router.get("/:id", getDoctorById);
+router.get("/", protect, authorize(["doctor", "patient"]), searchDoctors);
+router.get("/:id", protect, authorize(["doctor"]), getDoctorById);
 
 export default router;

@@ -1,9 +1,11 @@
 import express from 'express';
 import connectDb from './config/db.js';
 import dotenv from 'dotenv';
+
+import authRoutes from "./routes/auth.routes.js"; 
 import patientRoutes from "./routes/patient.routes.js";
 import doctorRoutes from "./routes/doctor.routes.js"; 
-import queueRoutes from "./routes/queue.routes.js";   
+import queueRoutes from "./routes/queue.routes.js";  
 
 dotenv.config();
 
@@ -15,6 +17,7 @@ const app = express();
 app.use(express.json());
 
 // Routes
+app.use("/api/auth", authRoutes);
 app.use("/api/patients", patientRoutes);
 app.use("/api/doctors", doctorRoutes);
 app.use("/api/queue", queueRoutes); 

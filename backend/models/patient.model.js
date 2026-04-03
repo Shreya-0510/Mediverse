@@ -1,10 +1,10 @@
 import mongoose from "mongoose";
 
 const patientSchema = new mongoose.Schema({
-    name: {
-      type: String,
-      required: true,
-      trim: true
+    user: { 
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: "User", 
+        required: true 
     },
     dob: {
       type: Date,
@@ -25,6 +25,6 @@ const patientSchema = new mongoose.Schema({
     }
 }, {timestamps: true})
 
-const Patient = new mongoose.model("Patient", patientSchema);
+const Patient = mongoose.model("Patient", patientSchema);
 
 export default Patient;

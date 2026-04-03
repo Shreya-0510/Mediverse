@@ -1,29 +1,5 @@
 import Patient from "../models/patient.model.js";
 
-export const createPatient = async (req, res) => {
-  try {
-    const { name, dob, gender, symptoms, contact } = req.body;
-
-    const patient = await Patient.create({
-      name,
-      dob,
-      gender,
-      symptoms,
-      contact
-    });
-
-    res.status(201).json({
-      success: true,
-      data: patient
-    });
-  } catch (error) {
-    res.status(500).json({
-      success: false,
-      message: error.message
-    });
-  }
-};
-
 export const getPatientById = async (req, res) => {
   try {
     const { id } = req.params;
