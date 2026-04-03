@@ -1,20 +1,19 @@
 import express from "express";
-import {
-  addToQueue,
-  getQueueByDoctor,
-  updateQueueStatus
-} from "../controllers/queue.controller.js";
-import { authorize, protect } from "../middleware/auth.js";
+import { addToQueue, getQueueByDoctor, updateQueueStatus } from "../controllers/queue.controller.js";
+import { protect, authorize } from "../middleware/auth.js";
 
 const router = express.Router();
 
-// Add patient to queue
+// Patient adds themselves to a doctor's queue
 router.post("/", protect, authorize(["patient"]), addToQueue);
 
-// Get queue for a specific doctor
-router.get("/doctor/:doctorId", protect, authorize(["doctor"]), getQueueByDoctor);
+// Doctor views their queue
+router.get("/doctor", protect, authorize(["doctor"]), getQueueByDoctor);
 
-// Update queue status
+// Doctor updates queue status
 router.patch("/:id", protect, authorize(["doctor"]), updateQueueStatus);
+
+// Get current patient's queue status (position + ETA)
+router.get("/my", protect, authorize(["patient"]), getMyQueueStatus);
 
 export default router;

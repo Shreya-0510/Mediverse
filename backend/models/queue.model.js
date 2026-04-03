@@ -12,6 +12,11 @@ const queueSchema = new mongoose.Schema(
       ref: "Doctor",
       required: true
     },
+    clinicId: { 
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Clinic",
+      required: true
+    },
     status: {
       type: String,
       enum: ["waiting", "in-progress", "done"],
@@ -20,6 +25,9 @@ const queueSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
+
+// Add index for fast doctor + status lookups**
+queueSchema.index({ doctorId: 1, status: 1 });
 
 const Queue = mongoose.model("Queue", queueSchema);
 export default Queue;

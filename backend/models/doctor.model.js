@@ -19,6 +19,11 @@ const doctorSchema = new mongoose.Schema(
     availableSlots: {
       type: [Date], 
       default: []
+    },
+    clinic: { 
+      type: mongoose.Schema.Types.ObjectId, 
+      ref: "Clinic",
+      required: true
     }
   },
   {
